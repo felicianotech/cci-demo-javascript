@@ -1,0 +1,20 @@
+machine:
+  node:
+    version: 4.8.2
+
+dependencies:
+  override:
+    - npm --version
+    - npm install -g npm@latest
+    - npm --version
+    - npm install
+
+test:
+  override:
+    - mkdir $CIRCLE_TEST_REPORTS/reports
+    - npm test
+    - ./node_modules/.bin/nyc report --reporter=text-lcov
+
+general:
+  artifacts:
+    - coverage
